@@ -1,11 +1,9 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../models/news_model.dart';
-
 
 class NewsViewModel extends ChangeNotifier {
   final String apiKey = "crals9pr01qhk4bqotb0crals9pr01qhk4bqotbg";
@@ -26,7 +24,7 @@ class NewsViewModel extends ChangeNotifier {
     final url = "https://finnhub.io/api/v1/news?category=general&token=$apiKey";
     try {
       final response = await dio.get(url);
-      // log(response.data.toString());
+
       List responseData = List.from(response.data);
       news = responseData.map((element) {
         return NewsModel.fromJson(element);
@@ -34,10 +32,8 @@ class NewsViewModel extends ChangeNotifier {
     } on SocketException catch (_) {
       errorMessage = "No Inernet Connection";
     } on DioError catch (e) {
-      log(e.message);
-      errorMessage = "An error occurred, please try again later";
+      errorMessage = e.message;
     } catch (e) {
-      log(e.toString());
       errorMessage = "An error occurred, please try again later";
     }
     isLoading = false;
