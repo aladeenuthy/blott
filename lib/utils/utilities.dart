@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -40,8 +39,6 @@ class Utilities {
         openAppSettings();
         return false;
       } else {
-        log("here");
-        
         status = await Permission.notification.request();
         if (status.isGranted) {
           return true;
